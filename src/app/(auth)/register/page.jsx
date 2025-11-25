@@ -5,6 +5,7 @@ import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import { getUploadImage } from "@/utilities/getUploadImage";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -15,9 +16,14 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const handleCreateUser = (data) => {
-    const imageInfo = data.image[0]
-    console.log(imageInfo);
+  const handleCreateUser = async (data) => {
+    try {
+      const photoURL = await getUploadImage(data.image[0]);
+
+      console.log(photoURL);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const validatePassword = (value) => {
