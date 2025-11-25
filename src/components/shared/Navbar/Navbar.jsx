@@ -85,13 +85,30 @@ const Navbar = () => {
           <div className="navbar-end gap-2.5">
             {currentUser ? (
               <>
-                <div className="avatar">
-                  <div className="ring-primary ring-offset-base-100 size-10 rounded-full ring-2 ring-offset-2">
-                    <img
-                      src={currentUser.photoURL}
-                      alt={currentUser.displayName}
-                    />
+                <div className="dropdown dropdown-end">
+                  <div tabIndex={0} role="button" className="avatar m-1">
+                    <div className="ring-primary ring-offset-base-100 size-10 rounded-full ring-2 ring-offset-2 btn btn-square">
+                      <img
+                        src={currentUser.photoURL}
+                        alt={currentUser.displayName}
+                      />
+                    </div>
                   </div>
+
+                  <ul
+                    tabIndex="-1"
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                  >
+                    <div className="py-1.5 px-3 mb-2.5">
+                      <strong className="text-nowrap">{currentUser.displayName}</strong>
+                    </div>
+                    <li>
+                      <a>Add Product</a>
+                    </li>
+                    <li>
+                      <a>Manage Product</a>
+                    </li>
+                  </ul>
                 </div>
 
                 <MyButton onClick={handleLogout}>Logout</MyButton>
