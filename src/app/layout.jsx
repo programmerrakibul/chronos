@@ -1,6 +1,7 @@
 import Navbar from "@/components/shared/Navbar/Navbar";
 import "./globals.css";
 import AuthProvider from "@/contexts/Auth/AuthProvider";
+import { Toaster } from "sonner";
 
 export const metadata = {
   title: "Home Chronos",
@@ -18,6 +19,7 @@ const RootLayout = ({ children }) => {
             </header>
             <main>{children}</main>
           </AuthProvider>
+          <Toaster position="top-center" richColors closeButton />
         </body>
       </html>
     </>

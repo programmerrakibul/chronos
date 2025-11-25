@@ -8,10 +8,12 @@ import MyLabel from "@/components/MyLabel/MyLabel";
 import SocialLogin from "@/components/SocialLogin/SocialLogin";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
+import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const { createUser, updateUserProfile } = useAuthInfo();
@@ -34,10 +36,9 @@ const RegisterPage = () => {
         displayName,
         photoURL,
       });
-
-      console.log(userCredentials.user);
     } catch (err) {
-      console.log(err);
+      const errorMessage = getAuthErrorMessage(err.code);
+      toast.error(errorMessage);
     }
   };
 

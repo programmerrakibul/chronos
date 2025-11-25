@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useAuthInfo from "./useAuthInfo";
+import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
+import { toast } from "sonner";
 
 const useGoogleLogin = () => {
   const { loginUserWithGoogle } = useAuthInfo();
@@ -11,6 +13,8 @@ const useGoogleLogin = () => {
     try {
       await loginUserWithGoogle();
     } catch (err) {
+      const errorMessage = getAuthErrorMessage(err.code);
+      toast.error(errorMessage);
       console.log(err);
     } finally {
       setGoogleLoading(false);
