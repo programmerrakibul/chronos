@@ -18,3 +18,25 @@
 .primary_linear_hover {
   @apply transition-colors duration-300 hover:from-primary/70  dark:hover:from-primary hover:to-secondary/70 dark:hover:to-secondary;
 }
+
+.input,
+.textarea,
+.select {
+  @apply w-full block bg-transparent;
+}
+
+.textarea {
+  @apply focus:textarea-primary;
+}
+
+.select {
+  @apply focus:select-primary bg-base-300!;
+}
+
+.input {
+  @apply focus:input-primary;
+}
+
+.label {
+  @apply font-semibold text-neutral text-base md:text-lg font-['Raleway'];
+}
