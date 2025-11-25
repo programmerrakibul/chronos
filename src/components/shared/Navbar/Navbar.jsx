@@ -100,13 +100,17 @@ const Navbar = () => {
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                   >
                     <div className="py-1.5 px-3 mb-2.5">
-                      <strong className="text-nowrap">{currentUser.displayName}</strong>
+                      <strong className="text-nowrap">
+                        {currentUser.displayName}
+                      </strong>
                     </div>
+
                     <li>
-                      <a>Add Product</a>
+                      <NavLink href="post-blog">Post Blog</NavLink>
                     </li>
+
                     <li>
-                      <a>Manage Product</a>
+                      <NavLink href="manage-blogs">Manage Blogs</NavLink>
                     </li>
                   </ul>
                 </div>
