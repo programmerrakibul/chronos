@@ -1,22 +1,28 @@
-'use client'
+"use client";
 
 import ErrorText from "@/components/ErrorText/ErrorText";
 import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import useAuthInfo from "@/hooks/useAuthInfo";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
+  const { loginUser } = useAuthInfo();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const handleUserLogin = (data) => {
-    console.log(data);
+  const handleUserLogin = async (data) => {
+    try {
+      await loginUser(data.email, data.password);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
