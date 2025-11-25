@@ -1,1 +1,20 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+.btn {
+  @apply font-['Raleway'];
+}
+
+.btn:disabled {
+  @apply pointer-events-auto cursor-not-allowed bg-[#D6D3E4] bg-none;
+}
+
+.primary_linear {
+  @apply bg-linear-to-r from-primary/60 dark:from-primary/80  to-secondary/60 dark:to-secondary/80;
+}
+
+.primary_linear_hover {
+  @apply transition-colors duration-300 hover:from-primary/70  dark:hover:from-primary hover:to-secondary/70 dark:hover:to-secondary;
+}
