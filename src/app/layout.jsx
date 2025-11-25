@@ -1,5 +1,6 @@
 import Navbar from "@/components/shared/Navbar/Navbar";
 import "./globals.css";
+import AuthProvider from "@/contexts/Auth/AuthProvider";
 
 export const metadata = {
   title: "Home Chronos",
@@ -11,10 +12,12 @@ const RootLayout = ({ children }) => {
     <>
       <html lang="en">
         <body>
-          <header>
-            <Navbar />
-          </header>
-          <main>{children}</main>
+          <AuthProvider>
+            <header>
+              <Navbar />
+            </header>
+            <main>{children}</main>
+          </AuthProvider>
         </body>
       </html>
     </>

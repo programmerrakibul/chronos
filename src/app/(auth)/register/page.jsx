@@ -5,11 +5,14 @@ import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import useAuthInfo from "@/hooks/useAuthInfo";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 const RegisterPage = () => {
+  const { createUser, updateUserProfile } = useAuthInfo();
+
   const {
     handleSubmit,
     register,
@@ -17,10 +20,18 @@ const RegisterPage = () => {
   } = useForm();
 
   const handleCreateUser = async (data) => {
-    try {
-      const photoURL = await getUploadImage(data.image[0]);
+    const { name: displayName, email, image, password } = data;
 
-      console.log(photoURL);
+    try {
+      const photoURL = await getUploadImage(image[0]);
+      const userCredentials = await createUser(email, password);
+      await updateUserProfile({
+        ...userCredentials.user,
+        displayName,
+        photoURL,
+      });
+
+      console.log(userCredentials.user);
     } catch (err) {
       console.log(err);
     }
