@@ -5,8 +5,10 @@ import MyContainer from "@/components/MyContainer/MyContainer";
 import Link from "next/link";
 import MyButton from "@/components/MyButton/MyButton";
 import { useRouter } from "next/navigation";
+import useAuthInfo from "@/hooks/useAuthInfo";
 
 const Navbar = () => {
+  const { currentUser, logoutUser } = useAuthInfo();
   const router = useRouter();
   const navTexts = [
     {
@@ -31,6 +33,14 @@ const Navbar = () => {
       <NavLink href={item.slug}>{item.link}</NavLink>
     </li>
   ));
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <nav className="bg-base-100 shadow-sm">
@@ -72,12 +82,29 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-base">{navLinks}</ul>
           </div>
-          <div className="navbar-end gap-1.5">
-            <MyButton onClick={() => router.push("/login")}>Login</MyButton>
+          <div className="navbar-end gap-2.5">
+            {currentUser ? (
+              <>
+                <div className="avatar">
+                  <div className="ring-primary ring-offset-base-100 size-10 rounded-full ring-2 ring-offset-2">
+                    <img
+                      src={currentUser.photoURL}
+                      alt={currentUser.displayName}
+                    />
+                  </div>
+                </div>
 
-            <MyButton onClick={() => router.push("/register")}>
-              Register
-            </MyButton>
+                <MyButton onClick={handleLogout}>Logout</MyButton>
+              </>
+            ) : (
+              <>
+                <MyButton onClick={() => router.push("/login")}>Login</MyButton>
+
+                <MyButton onClick={() => router.push("/register")}>
+                  Register
+                </MyButton>
+              </>
+            )}
           </div>
         </div>
       </MyContainer>
