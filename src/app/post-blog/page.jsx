@@ -5,12 +5,14 @@ import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import useAuthInfo from "@/hooks/useAuthInfo";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 const PostBlogPage = () => {
+  const { currentUser } = useAuthInfo();
   const {
     handleSubmit,
     register,
@@ -24,7 +26,17 @@ const PostBlogPage = () => {
       return acc;
     }, []);
 
-    const newPost = { title, category, description, tags: allTags };
+    const newPost = {
+      title,
+      category,
+      description,
+      tags: allTags,
+      author: {
+        name: currentUser.displayName,
+        email: currentUser.email,
+        image: currentUser.photoURL,
+      },
+    };
 
     try {
       const imageURL = await getUploadImage(image[0]);
