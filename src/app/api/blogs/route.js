@@ -30,14 +30,11 @@ export const GET = async (request) => {
       }
     );
   }
-
-  console.log(searchParams);
-
-  return NextResponse.json({ message: "hello" });
 };
 
 export const POST = async (request) => {
   const newPost = await request.json();
+  newPost.publishedOn = new Date().toISOString();
 
   try {
     const { blogs } = await collections();
@@ -46,7 +43,7 @@ export const POST = async (request) => {
     return NextResponse.json({
       success: true,
       message: "Blog data posted successfully",
-      blogs: result,
+      ...result,
     });
   } catch (err) {
     return NextResponse.json(
