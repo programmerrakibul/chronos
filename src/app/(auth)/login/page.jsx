@@ -5,12 +5,17 @@ import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import SocialLogin from "@/components/SocialLogin/SocialLogin";
 import useAuthInfo from "@/hooks/useAuthInfo";
+import useGoogleLogin from "@/hooks/useGoogleLogin";
+import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
+  const { handleGoogleLogin } = useGoogleLogin();
   const { loginUser } = useAuthInfo();
+
   const {
     handleSubmit,
     register,
@@ -30,7 +35,7 @@ const LoginPage = () => {
       <MyContainer className="grid place-items-center min-h-[70dvh]">
         <div className="max-w-lg w-full">
           <form onSubmit={handleSubmit(handleUserLogin)}>
-            <fieldset className="fieldset gap-3.5">
+            <fieldset className="fieldset gap-3.5 text-base">
               <div className="space-y-1.5">
                 <MyLabel htmlFor="email" label="Email" />
                 <MyInput
@@ -64,7 +69,17 @@ const LoginPage = () => {
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
+
               <MyButton className="btn btn-neutral mt-4">Login</MyButton>
+
+              <p className="text-center">
+                Don&apos;t have an account?{" "}
+                <Link href="/register" className="link link-hover">
+                  Register Now
+                </Link>
+              </p>
+
+              <SocialLogin onClick={handleGoogleLogin} />
             </fieldset>
           </form>
         </div>
