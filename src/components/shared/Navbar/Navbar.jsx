@@ -17,15 +17,15 @@ const Navbar = () => {
     },
     {
       link: "Blogs",
-      slug: "blogs",
+      slug: "/blogs",
     },
     {
       link: "About Us",
-      slug: "about-us",
+      slug: "/about-us",
     },
     {
       link: "Contact Us",
-      slug: "contact-us",
+      slug: "/contact-us",
     },
   ];
   const navLinks = navTexts.map((item) => (

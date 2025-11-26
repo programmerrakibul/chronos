@@ -1,7 +1,10 @@
 import { formatDate } from "@/utilities/formatDate";
 import MyButton from "../MyButton/MyButton";
+import { useRouter } from "next/navigation";
 
 export default function BlogCard({ blogData }) {
+  const router = useRouter();
+
   return (
     <div className="card card-side bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
       {/* Blog Image */}
@@ -49,7 +52,12 @@ export default function BlogCard({ blogData }) {
           </div>
 
           {/* Details Button */}
-          <MyButton className="btn-sm!">Read</MyButton>
+          <MyButton
+            onClick={() => router.push(`/blogs/${blogData._id}`)}
+            className="btn-sm!"
+          >
+            Read
+          </MyButton>
         </div>
       </div>
     </div>
