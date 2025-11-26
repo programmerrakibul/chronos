@@ -7,7 +7,7 @@ export const GET = async (request) => {
   const query = {};
 
   if (email) {
-    query.authorEmail = email;
+    query["author.email"] = email;
   }
 
   try {
