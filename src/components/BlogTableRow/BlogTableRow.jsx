@@ -1,8 +1,10 @@
 import { formatDate } from "@/utilities/formatDate";
+import { useRouter } from "next/navigation";
 import { FaEye, FaRegTrashAlt } from "react-icons/fa";
 
 const BlogTableRow = ({ index, blogData }) => {
-  const { _id, title, category, imageURL, publishedOn } = blogData;
+  const { _id, title, category, imageURL, publishedOn } = blogData || {};
+  const router = useRouter();
 
   return (
     <>
@@ -19,9 +21,13 @@ const BlogTableRow = ({ index, blogData }) => {
         <td>{category}</td>
         <td>{formatDate(publishedOn)}</td>
         <td className="flex items-center gap-1.5">
-          <button className="btn btn-sm text-base btn-square">
+          <button
+            onClick={() => router.push(`/blogs/${_id}`)}
+            className="btn btn-sm text-base btn-square"
+          >
             <FaEye />
           </button>
+
           <button className="btn btn-sm btn-square text-error text-base">
             <FaRegTrashAlt />
           </button>
