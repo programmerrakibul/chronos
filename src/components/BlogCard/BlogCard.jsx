@@ -1,15 +1,7 @@
+import { formatDate } from "@/utilities/formatDate";
 import MyButton from "../MyButton/MyButton";
 
 export default function BlogCard({ blogData }) {
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
-
   return (
     <div className="card card-side bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
       {/* Blog Image */}

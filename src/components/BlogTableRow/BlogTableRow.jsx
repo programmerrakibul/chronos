@@ -1,3 +1,4 @@
+import { formatDate } from "@/utilities/formatDate";
 import { FaEye, FaRegTrashAlt } from "react-icons/fa";
 
 const BlogTableRow = ({ index, blogData }) => {
@@ -16,7 +17,7 @@ const BlogTableRow = ({ index, blogData }) => {
         </td>
         <td>{title}</td>
         <td>{category}</td>
-        <td>{publishedOn}</td>
+        <td>{formatDate(publishedOn)}</td>
         <td className="flex items-center gap-1.5">
           <button className="btn btn-sm text-base btn-square">
             <FaEye />
