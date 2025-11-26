@@ -2,7 +2,7 @@ import { formatDate } from "@/utilities/formatDate";
 import { useRouter } from "next/navigation";
 import { FaEye, FaRegTrashAlt } from "react-icons/fa";
 
-const BlogTableRow = ({ index, blogData }) => {
+const BlogTableRow = ({ index, blogData, handleRemoveBlog }) => {
   const { _id, title, category, imageURL, publishedOn } = blogData || {};
   const router = useRouter();
 
@@ -28,7 +28,10 @@ const BlogTableRow = ({ index, blogData }) => {
             <FaEye />
           </button>
 
-          <button className="btn btn-sm btn-square text-error text-base">
+          <button
+            onClick={() => handleRemoveBlog(_id)}
+            className="btn btn-sm btn-square text-error text-base"
+          >
             <FaRegTrashAlt />
           </button>
         </td>

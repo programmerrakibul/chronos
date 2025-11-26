@@ -5,11 +5,17 @@ import MyContainer from "@/components/MyContainer/MyContainer";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const ManageBlogs = () => {
   const { currentUser } = useAuthInfo();
 
-  const { data: blogs, isPending } = useQuery({
+  const {
+    data: blogs,
+    isPending,
+    refetch,
+  } = useQuery({
     queryKey: ["blogs", currentUser.email],
     queryFn: async () => {
       const res = await axios.get("/api/blogs", {
@@ -25,6 +31,45 @@ const ManageBlogs = () => {
   if (isPending) {
     return <p>Loading...</p>;
   }
+
+  const handleRemoveBlog = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleting",
+        });
+
+        Swal.showLoading();
+
+        const { data } = await axios.delete(`/api/blogs/${id}`);
+
+        if (data.deletedCount) {
+          setTimeout(() => {
+            refetch();
+            Swal.hideLoading();
+
+            Swal.fire({
+              title: "Deleted! ",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }, 200);
+        }
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   return (
     <>
@@ -53,6 +98,7 @@ const ManageBlogs = () => {
                     key={blog._id}
                     index={index + 1}
                     blogData={blog}
+                    handleRemoveBlog={handleRemoveBlog}
                   />
                 ))}
               </tbody>
