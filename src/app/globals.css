@@ -13,8 +13,26 @@
   --color-neutral: #27374d;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-neutral;
+}
+
+.navLinks {
+  @apply font-bold text-neutral;
+}
+
+.navLinks:hover,
+.navLinks.active {
+  @apply bg-primary/30 text-primary;
+}
+
 .btn {
-  @apply font-['Raleway'];
+  @apply btn-sm md:btn-md font-semibold md:text-base;
 }
 
 .btn:disabled {
@@ -22,11 +40,11 @@
 }
 
 .primary_linear {
-  @apply bg-linear-to-r from-primary/60 dark:from-primary/80  to-secondary/60 dark:to-secondary/80;
+  @apply bg-linear-to-r from-primary/75 to-secondary/75;
 }
 
 .primary_linear_hover {
-  @apply transition-colors duration-300 hover:from-primary/70  dark:hover:from-primary hover:to-secondary/70 dark:hover:to-secondary;
+  @apply transition-colors duration-300 hover:from-primary/85   hover:to-secondary/85;
 }
 
 .input,
@@ -48,5 +66,13 @@
 }
 
 .label {
-  @apply font-semibold text-neutral text-base md:text-lg font-['Raleway'];
+  @apply font-semibold text-neutral text-base md:text-lg;
+}
+
+table tbody tr:nth-child(2n) {
+  @apply bg-[#dddddd6e];
+}
+
+.footer-title {
+  @apply opacity-100 font-semibold!;
 }

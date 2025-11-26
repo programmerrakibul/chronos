@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorText from "@/components/ErrorText/ErrorText";
+import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
@@ -16,7 +17,7 @@ import { toast } from "sonner";
 
 const LoginPage = () => {
   const { handleGoogleLogin } = useGoogleLogin();
-  const { loginUser, currentUser } = useAuthInfo();
+  const { loginUser } = useAuthInfo();
 
   const {
     handleSubmit,
@@ -35,8 +36,11 @@ const LoginPage = () => {
 
   return (
     <section className="py-6 my-7">
-      <MyContainer className="grid place-items-center min-h-[70dvh]">
-        <div className="max-w-lg w-full">
+      <MyContainer className="grid place-items-center min-h-[70dvh]  space-y-7">
+        <Heading
+        title="Login Now"
+        />
+        <div className="max-w-lg w-full bg-primary/10 p-6 rounded-xl shadow-xl">
           <form onSubmit={handleSubmit(handleUserLogin)}>
             <fieldset className="fieldset gap-3.5 text-base">
               <div className="space-y-1.5">

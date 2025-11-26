@@ -2,10 +2,10 @@
 
 import NavLink from "@/components/NavLink/NavLink";
 import MyContainer from "@/components/MyContainer/MyContainer";
-import Link from "next/link";
 import MyButton from "@/components/MyButton/MyButton";
 import { useRouter } from "next/navigation";
 import useAuthInfo from "@/hooks/useAuthInfo";
+import Logo from "../Logo/Logo";
 
 const Navbar = () => {
   const { currentUser, logoutUser } = useAuthInfo();
@@ -28,9 +28,12 @@ const Navbar = () => {
       slug: "/contact-us",
     },
   ];
+
   const navLinks = navTexts.map((item) => (
     <li key={item.slug}>
-      <NavLink href={item.slug}>{item.link}</NavLink>
+      <NavLink href={item.slug} className="navLinks">
+        {item.link}
+      </NavLink>
     </li>
   ));
 
@@ -43,7 +46,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-base-100 shadow-sm">
+    <nav>
       <MyContainer>
         <div className="navbar p-0">
           <div className="navbar-start">
@@ -51,7 +54,7 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost lg:hidden"
+                className="btn btn-ghost md:hidden"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,11 +78,9 @@ const Navbar = () => {
                 {navLinks}
               </ul>
             </div>
-            <Link href="/" className="text-xl">
-              CHRONOS
-            </Link>
+            <Logo />
           </div>
-          <div className="navbar-center hidden lg:flex">
+          <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal px-1 text-base">{navLinks}</ul>
           </div>
           <div className="navbar-end gap-2.5">
@@ -87,7 +88,7 @@ const Navbar = () => {
               <>
                 <div className="dropdown dropdown-end">
                   <div tabIndex={0} role="button" className="avatar m-1">
-                    <div className="ring-primary ring-offset-base-100 size-10 rounded-full ring-2 ring-offset-2 btn btn-square">
+                    <div className="ring-primary ring-offset-accent size-7 md:size-10 rounded-full ring-2 ring-offset-2 btn btn-square">
                       <img
                         src={currentUser.photoURL}
                         alt={currentUser.displayName}
@@ -106,11 +107,15 @@ const Navbar = () => {
                     </div>
 
                     <li>
-                      <NavLink href="/post-blog">Post Blog</NavLink>
+                      <NavLink href="/post-blog" className="navLinks">
+                        Post Blog
+                      </NavLink>
                     </li>
 
                     <li>
-                      <NavLink href="/manage-blogs">Manage Blogs</NavLink>
+                      <NavLink href="/manage-blogs" className="navLinks">
+                        Manage Blogs
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
@@ -120,10 +125,6 @@ const Navbar = () => {
             ) : (
               <>
                 <MyButton onClick={() => router.push("/login")}>Login</MyButton>
-
-                <MyButton onClick={() => router.push("/register")}>
-                  Register
-                </MyButton>
               </>
             )}
           </div>

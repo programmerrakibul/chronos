@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorText from "@/components/ErrorText/ErrorText";
+import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
@@ -68,8 +69,9 @@ const RegisterPage = () => {
 
   return (
     <section className="py-6 my-7">
-      <MyContainer className="grid place-items-center min-h-[70dvh]">
-        <div className="max-w-lg w-full">
+      <MyContainer className="grid place-items-center min-h-[70dvh] space-y-7">
+        <Heading title="Register Now" />
+        <div className="max-w-lg w-full bg-primary/10 shadow-xl rounded-xl p-6">
           <form onSubmit={handleSubmit(handleCreateUser)}>
             <fieldset className="fieldset gap-3.5 text-base">
               {/* User Name */}

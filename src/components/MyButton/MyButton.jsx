@@ -1,10 +1,20 @@
-const MyButton = ({ children, onClick, className = "", disabled = false }) => {
+const MyButton = ({
+  children,
+  onClick,
+  className = "",
+  disabled = false,
+  outline = false,
+}) => {
   return (
     <>
       <button
         disabled={disabled}
         onClick={onClick}
-        className={`btn btn-sm md:btn-md primary_linear primary_linear_hover shadow-none border-none text-white ${className}`}
+        className={`btn btn-sm md:btn-md ${
+          outline
+            ? "btn-outline btn-primary"
+            : "primary_linear primary_linear_hover border-none text-white"
+        }  shadow-none  ${className}`}
       >
         {children}
       </button>

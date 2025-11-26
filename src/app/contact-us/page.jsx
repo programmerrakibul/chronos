@@ -1,4 +1,7 @@
+import Heading from "@/components/Heading/Heading";
 import MyContainer from "@/components/MyContainer/MyContainer";
+import MyInput from "@/components/MyInput/MyInput";
+import MyLabel from "@/components/MyLabel/MyLabel";
 import {
   FaEnvelope,
   FaPhone,
@@ -21,15 +24,15 @@ export default function Contact() {
       icon: <FaEnvelope className="text-2xl" />,
       title: "Email Us",
       description: "Send us an email anytime",
-      details: "hello@chronos.com",
-      link: "mailto:hello@chronos.com",
+      details: "rakibul00206@gmail.com",
+      link: "mailto:rakibul00206@gmail.com",
     },
     {
       icon: <FaPhone className="text-2xl" />,
       title: "Call Us",
       description: "Mon to Fri from 9am to 6pm",
-      details: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      details: "+880 188841-9206",
+      link: "tel:+880 188841-9206",
     },
     {
       icon: <FaMapMarkerAlt className="text-2xl" />,
@@ -44,53 +47,49 @@ export default function Contact() {
     {
       icon: <FaTwitter className="text-xl" />,
       name: "Twitter",
-      url: "https://twitter.com/chronos",
+      url: "https://x.com/innocentboy206",
       color: "hover:text-blue-400",
     },
     {
       icon: <FaGithub className="text-xl" />,
       name: "GitHub",
-      url: "https://github.com/chronos",
+      url: "https://github.com/programmerrakibul",
       color: "hover:text-gray-700",
     },
     {
       icon: <FaLinkedin className="text-xl" />,
       name: "LinkedIn",
-      url: "https://linkedin.com/company/chronos",
+      url: "https://www.linkedin.com/in/programmer-rakibul/",
       color: "hover:text-blue-600",
     },
   ];
 
   return (
-    <section className="min-h-screen bg-base-100 py-8">
-      <MyContainer>
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-base-content/70 max-w-2xl mx-auto">
-            Have questions about Chronos? We&apos;re here to help. Get in touch
-            with our team.
-          </p>
-        </div>
+    <section className="py-10 md:py-16">
+      <MyContainer className="space-y-10">
+        <Heading
+          title="Contact Us"
+          subTitle="Have questions about Chronos? We're here to help. Get in touch
+            with our team."
+        />
 
         <div className="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
-          {/* Contact Information */}
           <div className="flex-1">
-            <div className="card bg-base-100 shadow-xl">
+            <div className="card bg-primary/5 shadow-xl">
               <div className="card-body">
                 <h2 className="card-title text-2xl mb-6">Get in Touch</h2>
 
-                {/* Contact Methods */}
                 <div className="space-y-6 mb-8">
                   {contactMethods.map((method, index) => (
                     <a
                       key={index}
                       href={method.link}
-                      className="flex items-start gap-4 p-4 rounded-lg bg-base-200 hover:bg-base-300 transition-colors duration-200 group"
+                      className="flex items-start flex-wrap gap-4 p-4 rounded-lg bg-accent/20 hover:bg-base-300 transition-colors duration-200 group shadow-xl"
                     >
                       <div className="p-3 bg-primary text-primary-content rounded-lg group-hover:scale-110 transition-transform duration-200">
                         {method.icon}
                       </div>
+
                       <div>
                         <h3 className="text-lg font-semibold mb-1">
                           {method.title}
@@ -126,58 +125,47 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
           <div className="flex-1">
-            <div className="card bg-base-100 shadow-xl">
+            <div className="card bg-primary/5 shadow-xl">
               <div className="card-body">
                 <h2 className="card-title text-2xl mb-6">Send us a Message</h2>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="form-control">
-                      <label className="label">
-                        <span className="label-text font-semibold">
-                          First Name
-                        </span>
-                      </label>
-                      <input
-                        type="text"
+                      <MyLabel htmlFor="firstName" label="First Name" />
+                      <MyInput
+                        id="firstName"
                         placeholder="John"
-                        className="input input-bordered"
-                        required
+                        required={true}
                       />
                     </div>
                     <div className="form-control">
-                      <label className="label">
-                        <span className="label-text font-semibold">
-                          Last Name
-                        </span>
-                      </label>
-                      <input
-                        type="text"
+                      <MyLabel htmlFor="lastName" label="Last Name" />
+                      <MyInput
+                        id="lastName"
                         placeholder="Doe"
-                        className="input input-bordered"
-                        required
+                        required={true}
                       />
                     </div>
                   </div>
 
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Email</span>
-                    </label>
-                    <input
+                    <MyLabel htmlFor="email" label="Email" />
+                    <MyInput
+                      id="email"
                       type="email"
                       placeholder="john@example.com"
-                      className="input input-bordered"
-                      required
+                      required={true}
                     />
                   </div>
 
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Subject</span>
-                    </label>
-                    <select className="select select-bordered" required>
+                    <MyLabel htmlFor="subject" label="Subject" />
+                    <select
+                      id="subject"
+                      className="select select-bordered"
+                      required
+                    >
                       <option value="">Select a subject</option>
                       <option value="general">General Inquiry</option>
                       <option value="support">Technical Support</option>
@@ -188,10 +176,9 @@ export default function Contact() {
                   </div>
 
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Message</span>
-                    </label>
+                    <MyLabel htmlFor="message" label="Message" />
                     <textarea
+                      id="message"
                       className="textarea textarea-bordered h-32"
                       placeholder="Tell us how we can help you..."
                       required
@@ -199,7 +186,7 @@ export default function Contact() {
                   </div>
 
                   <div className="form-control">
-                    <button type="submit" className="btn btn-primary btn-lg">
+                    <button type="submit" className="btn btn-primary btn-block">
                       <FaPaperPlane className="mr-2" />
                       Send Message
                     </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import BlogTableRow from "@/components/BlogTableRow/BlogTableRow";
+import Heading from "@/components/Heading/Heading";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import ProtectedRoute from "@/components/ProtectedRoutes/ProtectedRoutes";
 import useAuthInfo from "@/hooks/useAuthInfo";
@@ -74,15 +75,13 @@ const ManageBlogs = () => {
 
   return (
     <ProtectedRoute>
-      <section>
-        <MyContainer>
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">Blog Management</h1>
-          </div>
+      <section className="py-10 md:py-16 my-4">
+        <MyContainer className="space-y-7">
+          <Heading title="Manage Your Blogs" />
 
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
+          <div className="overflow-x-auto ">
+            <table className="table bg-indigo-50 shadow-lg" >
+              <thead className="text-neutral bg-indigo-100">
                 <tr>
                   <th>#</th>
                   <th>Image</th>

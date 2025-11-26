@@ -9,8 +9,8 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <>
-      <html lang="en">
-        <body>
+      <html lang="en" className="scroll-smooth">
+        <body className="text-neutral/80 text-sm md:text-base font-normal bg-accent/15 min-h-dvh">
           <Providers>{children}</Providers>
         </body>
       </html>

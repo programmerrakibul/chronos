@@ -1,43 +1,54 @@
 import MyContainer from "@/components/MyContainer/MyContainer";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaHeart, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
+import Logo from "../Logo/Logo";
+import Link from "next/link";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <>
-      <footer className=" p-10 bg-base-200 text-base-content">
-        <MyContainer>
-          <div className="footer footer-center">
-            <div className="grid grid-flow-col gap-4">
-              <a className="link link-hover">About us</a>
-              <a className="link link-hover">Contact</a>
-              <a className="link link-hover">Privacy Policy</a>
-              <a className="link link-hover">Terms of Service</a>
-            </div>
+    <footer className="bg-base-200 text-base-content py-10">
+      <MyContainer className="footer sm:footer-horizontal">
+        <aside className="max-w-sm w-full">
+          <Logo />
+          <p>
+            This is more than a blog. It&apos;s the chronicle of your journey.
+            Capture your evolving thoughts, document your passions, and build a
+            legacy of words that stands the test of time.
+          </p>
+        </aside>
 
-            <div>
-              <div className="grid grid-flow-col gap-4">
-                <a className="text-2xl">
-                  <FaTwitter />
-                </a>
-                <a className="text-2xl">
-                  <FaGithub />
-                </a>
-                <a className="text-2xl">
-                  <FaLinkedin />
-                </a>
-              </div>
-            </div>
+        <nav>
+          <h6 className="footer-title">Services</h6>
+          <a className="link link-hover">Design</a>
+          <a className="link link-hover">Marketing</a>
+          <a className="link link-hover">Advertisement</a>
+        </nav>
 
-            <div>
-              <p>
-                Copyright © {new Date().getFullYear()} - All rights reserved by
-                Chronos
-              </p>
-            </div>
-          </div>
-        </MyContainer>
-      </footer>
-    </>
+        <nav>
+          <h6 className="footer-title">Company</h6>
+          <Link href="/about-us" className="link link-hover">
+            About Us
+          </Link>
+          <Link href="/contact-us" className="link link-hover">
+            Contact Us
+          </Link>
+        </nav>
+        
+        <nav>
+          <h6 className="footer-title">Legal</h6>
+          <a className="link link-hover">Terms of use</a>
+          <a className="link link-hover">Privacy policy</a>
+          <a className="link link-hover">Cookie policy</a>
+        </nav>
+      </MyContainer>
+
+      <div className="mt-10 p-5 pb-0 border-t border-neutral/20 text-center">
+        <p>
+          Copyright © {currentYear} - All right reserved by <em>CHRONOS</em>
+        </p>
+      </div>
+    </footer>
   );
 };
 

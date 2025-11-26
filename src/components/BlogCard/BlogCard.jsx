@@ -1,3 +1,5 @@
+"use client";
+
 import { formatDate } from "@/utilities/formatDate";
 import MyButton from "../MyButton/MyButton";
 import { useRouter } from "next/navigation";
@@ -6,9 +8,9 @@ export default function BlogCard({ blogData }) {
   const router = useRouter();
 
   return (
-    <div className="card card-side bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
       {/* Blog Image */}
-      <figure className="w-32 flex-shrink-0">
+      <figure className="w-full h-36 flex-shrink-0">
         <img
           src={blogData.imageURL}
           alt={blogData.title}
@@ -16,22 +18,18 @@ export default function BlogCard({ blogData }) {
         />
       </figure>
 
-      <div className="card-body p-4">
-        {/* Title */}
-        <h2 className="card-title text-md font-bold line-clamp-1">
+      <div className="card-body gap-5 p-4">
+        <h2 className="card-title text-lg font-bold line-clamp-2">
           {blogData.title}
         </h2>
 
-        {/* Short Description */}
-        <p className="text-base-content/70 text-sm line-clamp-2 mb-2">
-          {blogData.description}
-        </p>
+        <p className="line-clamp-3">{blogData.description}</p>
 
         <div className="card-actions justify-between items-center">
           <div className="flex items-center gap-2">
             {/* Author Avatar */}
             <div className="avatar">
-              <div className="w-6 h-6 rounded-full">
+              <div className="size-9 rounded-full">
                 <img
                   src={blogData.author.image}
                   alt={blogData.author.name}
@@ -41,22 +39,17 @@ export default function BlogCard({ blogData }) {
             </div>
 
             {/* Author Name and Date */}
-            <div className="flex flex-col">
-              <span className="text-xs font-medium">
-                {blogData.author.name}
-              </span>
-              <span className="text-xs text-base-content/50">
+            <div className="flex flex-col text-sm">
+              <span className="font-bold">{blogData.author.name}</span>
+
+              <span>
                 {formatDate(blogData.publishedOn)}
               </span>
             </div>
           </div>
 
-          {/* Details Button */}
-          <MyButton
-            onClick={() => router.push(`/blogs/${blogData._id}`)}
-            className="btn-sm!"
-          >
-            Read
+          <MyButton onClick={() => router.push(`/blogs/${blogData._id}`)}>
+            Read Blog
           </MyButton>
         </div>
       </div>

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import AuthProvider from "@/contexts/Auth/AuthProvider";
 import Navbar from "../shared/Navbar/Navbar";
@@ -12,13 +12,15 @@ const Providers = ({ children }) => {
   return (
     <>
       <AuthProvider>
-        <header>
-          <Navbar />
-        </header>
         <QueryClientProvider client={queryClient}>
-          <main className="min-h-[75dvh]">{children}</main>
+          <header className="bg-neutral/20 backdrop-blur-sm sticky top-0 w-full shadow-sm z-50">
+            <Navbar />
+          </header>
+          <main className="min-h-[75dvh] space-y-20 md:space-y-24">
+            {children}
+          </main>
+          <Footer />
         </QueryClientProvider>
-        <Footer />
       </AuthProvider>
       <Toaster position="top-center" richColors closeButton />
     </>

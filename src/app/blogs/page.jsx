@@ -1,6 +1,7 @@
 "use client";
 
 import BlogCard from "@/components/BlogCard/BlogCard";
+import Heading from "@/components/Heading/Heading";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -21,13 +22,14 @@ const BlogsPage = () => {
 
   return (
     <>
-      <section>
-        <MyContainer>
-          <div>
-            <h1>All blogs</h1>
-          </div>
+      <section className="my-7 py-6">
+        <MyContainer className="space-y-10">
+          <Heading
+            title="Get Lost in a Good Read"
+            subTitle="Welcome to our library of stories and ideas. Find a comfortable spot, and explore everything from quick personal reflections to deep, thought-provoking essays."
+          />
 
-          <div className="grid grid-cols-3 gap-7">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
             {blogs.map((blog) => (
               <BlogCard key={blog._id} blogData={blog} />
             ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorText from "@/components/ErrorText/ErrorText";
+import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
@@ -11,6 +12,7 @@ import { getUploadImage } from "@/utilities/getUploadImage";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { FaPaperPlane } from "react-icons/fa";
 
 const PostBlogPage = () => {
   const { currentUser } = useAuthInfo();
@@ -51,9 +53,11 @@ const PostBlogPage = () => {
   return (
     <ProtectedRoute>
       <section className="py-6 my-7">
-        <MyContainer className="min-h-[70dvh] grid place-items-center">
-          <div className="max-w-xl w-full">
-            <form onSubmit={handleSubmit(handlePublishBlog)}>
+        <MyContainer className="min-h-[70dvh] grid place-items-center gap-7">
+          <Heading title="Post Your Blog Data" />
+
+          <div className="max-w-xl w-full bg-primary/10 rounded-2xl shadow-xl">
+            <form onSubmit={handleSubmit(handlePublishBlog)} className="p-6">
               <div className="fieldset text-base gap-3.5">
                 {/* Title */}
                 <div className="space-y-1.5">
@@ -72,9 +76,9 @@ const PostBlogPage = () => {
                   {errors.title && <ErrorText label={errors.title.message} />}
                 </div>
 
-                <div className="flex items-center gap-6 justify-between">
+                <div className="flex flex-col md:flex-row items-center gap-6 justify-between">
                   {/* Category */}
-                  <div className="flex-1 space-y-1.5">
+                  <div className="w-full md:flex-1 space-y-1.5">
                     <MyLabel label="Category" htmlFor="category" />
                     <select
                       id="category"
@@ -100,7 +104,7 @@ const PostBlogPage = () => {
                   </div>
 
                   {/* Tags */}
-                  <div className="space-y-1.5 flex-1">
+                  <div className="space-y-1.5 w-full md:flex-1">
                     <MyLabel
                       label="Tags (Separate with comma)"
                       htmlFor="tags"
@@ -155,7 +159,10 @@ const PostBlogPage = () => {
                   )}
                 </div>
 
-                <MyButton>Publish Blog</MyButton>
+                <MyButton className="rounded-xl">
+                  <FaPaperPlane className="mr-2" />
+                  Publish Blog
+                </MyButton>
               </div>
             </form>
           </div>
