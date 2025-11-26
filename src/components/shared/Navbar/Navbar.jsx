@@ -106,11 +106,11 @@ const Navbar = () => {
                     </div>
 
                     <li>
-                      <NavLink href="post-blog">Post Blog</NavLink>
+                      <NavLink href="/post-blog">Post Blog</NavLink>
                     </li>
 
                     <li>
-                      <NavLink href="manage-blogs">Manage Blogs</NavLink>
+                      <NavLink href="/manage-blogs">Manage Blogs</NavLink>
                     </li>
                   </ul>
                 </div>
