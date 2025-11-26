@@ -6,9 +6,14 @@ export const DELETE = async (req, { params }) => {
   const { id } = await params;
 
   if (id.length !== 24) {
-    return NextResponse.json({
-      message: "Invalid ID",
-    });
+    return NextResponse.json(
+      {
+        message: "Invalid ID",
+      },
+      {
+        status: 400,
+      }
+    );
   }
 
   const query = { _id: new ObjectId(id) };
@@ -25,9 +30,14 @@ export const DELETE = async (req, { params }) => {
       });
     }
 
-    return NextResponse.json({
-      message: "Blog data not found",
-    });
+    return NextResponse.json(
+      {
+        message: "Blog data not found",
+      },
+      {
+        status: 404,
+      }
+    );
   } catch (err) {
     return NextResponse.json(
       { success: false, message: err.message },
