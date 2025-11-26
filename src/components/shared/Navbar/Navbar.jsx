@@ -16,8 +16,8 @@ const Navbar = () => {
       slug: "/",
     },
     {
-      link: "Articles",
-      slug: "articles",
+      link: "Blogs",
+      slug: "blogs",
     },
     {
       link: "About Us",
