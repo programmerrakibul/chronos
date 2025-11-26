@@ -1,7 +1,9 @@
-"use client";
-
-import Head from "next/head";
 import { FaClock, FaUsers, FaRocket, FaHeart } from "react-icons/fa";
+
+export const metadata = {
+  title: "About Us | Chronos",
+  description: "Learn more about Chronos - our mission, team, and values",
+};
 
 export default function About() {
   const teamMembers = [
@@ -47,14 +49,6 @@ export default function About() {
 
   return (
     <>
-      <Head>
-        <title>About Us | Chronos</title>
-        <meta
-          name="description"
-          content="Learn more about Chronos - our mission, team, and values"
-        />
-      </Head>
-
       <section className="hero min-h-96 bg-gradient-to-br from-primary to-secondary text-primary-content">
         <div className="hero-content text-center">
           <div className="max-w-2xl">
