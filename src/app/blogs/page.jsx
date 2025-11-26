@@ -7,19 +7,17 @@ import axios from "axios";
 import React from "react";
 
 const BlogsPage = () => {
-  const { data, isLoading } = useQuery({
+  const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
       const res = await axios.get("/api/blogs");
-      return res.data;
+      return res.data?.blogs;
     },
   });
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  const { blogs } = data;
 
   return (
     <>
