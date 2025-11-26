@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 const LoginPage = () => {
   const { handleGoogleLogin } = useGoogleLogin();
-  const { loginUser } = useAuthInfo();
+  const { loginUser, currentUser } = useAuthInfo();
 
   const {
     handleSubmit,

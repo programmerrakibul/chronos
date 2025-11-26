@@ -5,6 +5,7 @@ import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import MyInput from "@/components/MyInput/MyInput";
 import MyLabel from "@/components/MyLabel/MyLabel";
+import ProtectedRoute from "@/components/ProtectedRoutes/ProtectedRoutes";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import axios from "axios";
@@ -48,7 +49,7 @@ const PostBlogPage = () => {
   };
 
   return (
-    <>
+    <ProtectedRoute>
       <section className="py-6 my-7">
         <MyContainer className="min-h-[70dvh] grid place-items-center">
           <div className="max-w-xl w-full">
@@ -160,7 +161,7 @@ const PostBlogPage = () => {
           </div>
         </MyContainer>
       </section>
-    </>
+    </ProtectedRoute>
   );
 };
 

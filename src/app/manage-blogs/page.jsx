@@ -2,6 +2,7 @@
 
 import BlogTableRow from "@/components/BlogTableRow/BlogTableRow";
 import MyContainer from "@/components/MyContainer/MyContainer";
+import ProtectedRoute from "@/components/ProtectedRoutes/ProtectedRoutes";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -16,11 +17,11 @@ const ManageBlogs = () => {
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["blogs", currentUser.email],
+    queryKey: ["blogs", currentUser?.email],
     queryFn: async () => {
       const res = await axios.get("/api/blogs", {
         params: {
-          email: currentUser.email,
+          email: currentUser?.email,
         },
       });
 
@@ -72,7 +73,7 @@ const ManageBlogs = () => {
   };
 
   return (
-    <>
+    <ProtectedRoute>
       <section>
         <MyContainer>
           <div className="flex justify-between items-center mb-6">
@@ -106,7 +107,7 @@ const ManageBlogs = () => {
           </div>
         </MyContainer>
       </section>
-    </>
+    </ProtectedRoute>
   );
 };
 
