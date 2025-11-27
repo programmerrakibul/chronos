@@ -8,6 +8,7 @@ import useAuthInfo from "@/hooks/useAuthInfo";
 import Logo from "../Logo/Logo";
 import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
 import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { currentUser, logoutUser } = useAuthInfo();
@@ -42,6 +43,11 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logoutUser();
+      Swal.fire({
+        icon: "success",
+        title: "Successfully logout",
+        timer: 1500,
+      });
     } catch (err) {
       const errorMessage = getAuthErrorMessage(err.code);
       toast.error(errorMessage);
