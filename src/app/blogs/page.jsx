@@ -59,7 +59,6 @@ const BlogsPage = () => {
 
             <select
               name="categoryFilter"
-              defaultValue=""
               value={filterValue}
               disabled={categories.length === 0}
               onChange={(e) => setFilterValue(e.target.value)}

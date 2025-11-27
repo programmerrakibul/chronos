@@ -88,7 +88,7 @@ const CategorySection = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-default group"
+              className="card bg-accent/10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-default group"
             >
               <div className="card-body">
                 {/* Icon and Title */}
