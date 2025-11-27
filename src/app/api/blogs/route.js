@@ -4,10 +4,28 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
   const { searchParams } = new URL(await request.url);
   const email = searchParams.get("email");
+  const search = searchParams.get("search");
   const query = {};
 
   if (email) {
     query["author.email"] = email;
+  }
+
+  if (search) {
+    query["$or"] = [
+      {
+        title: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        "author.name": {
+          $regex: search,
+          $options: "i",
+        },
+      },
+    ];
   }
 
   try {
