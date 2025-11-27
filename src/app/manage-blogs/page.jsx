@@ -2,6 +2,7 @@
 
 import BlogTableRow from "@/components/BlogTableRow/BlogTableRow";
 import Heading from "@/components/Heading/Heading";
+import Loader from "@/components/Loader/Loader";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import ProtectedRoute from "@/components/ProtectedRoutes/ProtectedRoutes";
 import useAuthInfo from "@/hooks/useAuthInfo";
@@ -31,7 +32,7 @@ const ManageBlogs = () => {
   });
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <Loader className="min-h-[60dvh]" />;
   }
 
   const handleRemoveBlog = async (id) => {
@@ -80,7 +81,7 @@ const ManageBlogs = () => {
           <Heading title="Manage Your Blogs" />
 
           <div className="overflow-x-auto ">
-            <table className="table bg-indigo-50 shadow-lg" >
+            <table className="table bg-indigo-50 shadow-lg">
               <thead className="text-neutral bg-indigo-100">
                 <tr>
                   <th>#</th>

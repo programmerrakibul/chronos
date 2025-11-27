@@ -8,7 +8,7 @@ export default function BlogCard({ blogData }) {
   const router = useRouter();
 
   return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
       {/* Blog Image */}
       <figure className="w-full h-36 flex-shrink-0">
         <img
@@ -42,9 +42,7 @@ export default function BlogCard({ blogData }) {
             <div className="flex flex-col text-sm">
               <span className="font-bold">{blogData.author.name}</span>
 
-              <span>
-                {formatDate(blogData.publishedOn)}
-              </span>
+              <span>{formatDate(blogData.publishedOn)}</span>
             </div>
           </div>
 

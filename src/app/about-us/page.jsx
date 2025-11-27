@@ -1,11 +1,11 @@
 import Heading from "@/components/Heading/Heading";
 import MyContainer from "@/components/MyContainer/MyContainer";
-import { FaUsers, FaRocket, FaHeart, FaPenNib } from "react-icons/fa";
+import { FaUsers, FaPenNib } from "react-icons/fa";
 import { RiCodeSSlashLine } from "react-icons/ri";
 
 export const metadata = {
-  title: "About Us | Chronos",
-  description: "Learn more about Chronos - our mission, team, and values",
+  title: "About Us | CHRONOS",
+  description: "Learn more about CHRONOS - our mission, team, and values",
 };
 
 export default function About() {
@@ -71,27 +71,6 @@ export default function About() {
     },
   ];
 
-  const values = [
-    {
-      title: "Quality Content",
-      description:
-        "We prioritize well-researched, engaging, and valuable content for our readers.",
-      icon: <FaHeart className="text-2xl text-red-500" />,
-    },
-    {
-      title: "Community First",
-      description:
-        "Our readers are at the heart of everything we do. We build this platform for you.",
-      icon: <FaUsers className="text-2xl text-blue-500" />,
-    },
-    {
-      title: "Innovation",
-      description:
-        "We continuously evolve to bring you the best reading experience across all devices.",
-      icon: <FaRocket className="text-2xl text-purple-500" />,
-    },
-  ];
-
   return (
     <>
       <section className="py-6 md:py-10">
@@ -135,20 +114,6 @@ export default function About() {
               </div>
             </div>
           </div>
-        </MyContainer>
-      </section>
-
-      <section className="py-6 md:py-10 bg-accent/20">
-        <MyContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((value, index) => (
-            <div key={index} className="card bg-base-100 shadow-xl">
-              <div className="card-body items-center text-center">
-                <div className="mb-4">{value.icon}</div>
-                <h3 className="card-title text-2xl mb-4">{value.title}</h3>
-                <p className="text-base-content/70">{value.description}</p>
-              </div>
-            </div>
-          ))}
         </MyContainer>
       </section>
 

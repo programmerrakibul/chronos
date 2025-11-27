@@ -13,9 +13,9 @@ import {
 } from "react-icons/fa";
 
 export const metadata = {
-  title: "Contact Us | Chronos",
+  title: "Contact Us | CHRONOS",
   description:
-    "Get in touch with the Chronos team. We'd love to hear from you!",
+    "Get in touch with the CHRONOS team. We'd love to hear from you!",
 };
 
 export default function Contact() {
@@ -105,7 +105,6 @@ export default function Contact() {
                   ))}
                 </div>
 
-                {/* Social Links */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
                   <div className="flex gap-3">
@@ -186,7 +185,7 @@ export default function Contact() {
                   </div>
 
                   <div className="form-control">
-                    <button type="submit" className="btn btn-primary btn-block">
+                    <button className="btn btn-primary btn-block">
                       <FaPaperPlane className="mr-2" />
                       Send Message
                     </button>

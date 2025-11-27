@@ -2,8 +2,8 @@ import "./globals.css";
 import Providers from "@/components/Providers/Providers";
 
 export const metadata = {
-  title: "Home Chronos",
-  description: "Welcome to chronos",
+  title: "CHRONOS",
+  description: "Welcome to CHRONOS",
 };
 
 const RootLayout = ({ children }) => {
