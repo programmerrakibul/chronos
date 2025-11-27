@@ -45,7 +45,7 @@ const BlogsPage = () => {
             subTitle="Welcome to our library of stories and ideas. Find a comfortable spot, and explore everything from quick personal reflections to deep, thought-provoking essays."
           />
 
-          <div className="join flex justify-end">
+          <div className="join flex justify-center">
             <div className="relative w-48 transition-all join-item">
               <input
                 type="search"
