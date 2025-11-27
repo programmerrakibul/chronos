@@ -6,6 +6,8 @@ import MyButton from "@/components/MyButton/MyButton";
 import { useRouter } from "next/navigation";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import Logo from "../Logo/Logo";
+import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const { currentUser, logoutUser } = useAuthInfo();
@@ -41,7 +43,8 @@ const Navbar = () => {
     try {
       await logoutUser();
     } catch (err) {
-      console.log(err);
+      const errorMessage = getAuthErrorMessage(err.code);
+      toast.error(errorMessage);
     }
   };
 
