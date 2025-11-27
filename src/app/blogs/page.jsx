@@ -5,20 +5,36 @@ import Heading from "@/components/Heading/Heading";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import { useState } from "react";
+import { FiSearch } from "react-icons/fi";
 
 const BlogsPage = () => {
-  const { data: blogs, isLoading } = useQuery({
-    queryKey: ["blogs"],
+  const [searchText, setSearchText] = useState("");
+  const [filterValue, setFilterValue] = useState("");
+  const { data: blogs = [], isLoading } = useQuery({
+    queryKey: ["blogs", searchText, filterValue],
     queryFn: async () => {
-      const res = await axios.get("/api/blogs");
-      return res.data?.blogs;
+      const { data } = await axios.get("/api/blogs", {
+        params: {
+          search: searchText,
+          category: filterValue,
+        },
+      });
+      return data?.blogs;
     },
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const { data } = await axios.get("/api/blogs/categories");
+      return data?.categories;
+    },
+  });
+
+  // if (isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <>
@@ -29,8 +45,35 @@ const BlogsPage = () => {
             subTitle="Welcome to our library of stories and ideas. Find a comfortable spot, and explore everything from quick personal reflections to deep, thought-provoking essays."
           />
 
+          <div className="join flex justify-end">
+            <div className="relative w-48 transition-all join-item">
+              <input
+                type="search"
+                placeholder="Search..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value.trim())}
+                className="input py-2 pl-10 pr-4 min-w-[190px]"
+              />
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <FiSearch />
+              </span>
+            </div>
+
+            <select
+              name="categoryFilter"
+              defaultValue=""
+              onChange={(e) => setFilterValue(e.target.value)}
+              className="select w-16! px-2 md:px-3 py-0 md:py-1 tracking-wider join-item"
+            >
+              <option value="">All</option>
+              {categories.map((item) => (
+                <option key={item.id}>{item.name}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
-            {blogs.map((blog) => (
+            {blogs?.map((blog) => (
               <BlogCard key={blog._id} blogData={blog} />
             ))}
           </div>

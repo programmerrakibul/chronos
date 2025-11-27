@@ -5,10 +5,15 @@ export const GET = async (request) => {
   const { searchParams } = new URL(await request.url);
   const email = searchParams.get("email");
   const search = searchParams.get("search");
+  const category = searchParams.get("category");
   const query = {};
 
   if (email) {
     query["author.email"] = email;
+  }
+
+  if (category) {
+    query.category = category;
   }
 
   if (search) {
