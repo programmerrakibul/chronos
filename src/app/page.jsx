@@ -1,9 +1,13 @@
+"use client";
+
 import Banner from "@/components/Banner/Banner";
 import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
 import MyContainer from "@/components/MyContainer/MyContainer";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <Banner />
@@ -18,7 +22,9 @@ export default function Home() {
           <div className="flex items-center gap-4 justify-center">
             <MyButton>Subscribe to Newsletter</MyButton>
 
-            <MyButton outline={true}>Start Writing</MyButton>
+            <MyButton onClick={() => router.push("/post-blog")} outline={true}>
+              Start Writing
+            </MyButton>
           </div>
         </MyContainer>
       </section>

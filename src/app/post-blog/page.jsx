@@ -1,5 +1,6 @@
 "use client";
 
+import ActionSpinner from "@/components/ActionSpinner/ActionSpinner";
 import ErrorText from "@/components/ErrorText/ErrorText";
 import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
@@ -10,20 +11,28 @@ import ProtectedRoute from "@/components/ProtectedRoutes/ProtectedRoutes";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPaperPlane } from "react-icons/fa";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const PostBlogPage = () => {
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useAuthInfo();
   const {
     handleSubmit,
     register,
+    reset,
+
     formState: { errors },
   } = useForm();
 
   const handlePublishBlog = async (data) => {
-    const { title, image, category, tags, description } = data;
+    setLoading(true);
+
+    const { title, image, category, tags, shortDescription, description } =
+      data;
     const allTags = tags.split(",").reduce((acc, tag) => {
       acc.push(tag.trim());
       return acc;
@@ -32,6 +41,7 @@ const PostBlogPage = () => {
     const newPost = {
       title,
       category,
+      shortDescription,
       description,
       tags: allTags,
       author: {
@@ -44,9 +54,20 @@ const PostBlogPage = () => {
     try {
       const imageURL = await getUploadImage(image[0]);
       const { data } = await axios.post("/api/blogs", { ...newPost, imageURL });
-      console.log(data);
+
+      if (data.insertedId) {
+        reset();
+
+        Swal.fire({
+          icon: "success",
+          title: "Your blog has been published",
+          timer: 1500,
+        });
+      }
     } catch (err) {
-      console.log(err);
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,6 +85,7 @@ const PostBlogPage = () => {
                   <MyLabel label="Title" htmlFor="title" />
                   <MyInput
                     id="title"
+                    disabled={loading}
                     placeholder="The Future of Artificial Intell..."
                     {...register("title", {
                       required: "Title is required",
@@ -82,6 +104,7 @@ const PostBlogPage = () => {
                     <MyLabel label="Category" htmlFor="category" />
                     <select
                       id="category"
+                      disabled={loading}
                       className="select select-bordered"
                       {...register("category", {
                         required: "Category is required",
@@ -111,6 +134,7 @@ const PostBlogPage = () => {
                     />
                     <MyInput
                       id="tags"
+                      disabled={loading}
                       placeholder="E.g. technology, tips, web-dev"
                       {...register("tags", {
                         required: "Tags is required",
@@ -130,6 +154,7 @@ const PostBlogPage = () => {
                   <input
                     type="file"
                     id="image"
+                    disabled={loading}
                     className="file-input w-full"
                     {...register("image", {
                       required: "Image is required",
@@ -139,11 +164,37 @@ const PostBlogPage = () => {
                   {errors.image && <ErrorText label={errors.image.message} />}
                 </div>
 
+                {/* Short Description */}
+                <div className="space-y-1.5">
+                  <MyLabel
+                    label="Short Description"
+                    htmlFor="shortDescription"
+                  />
+                  <textarea
+                    id="shortDescription"
+                    placeholder="Exploring how AI will transform our everyday lives..."
+                    className="textarea min-h-16"
+                    disabled={loading}
+                    {...register("shortDescription", {
+                      required: "Short Description is required",
+                      validate: (value) => {
+                        if (!value.trim())
+                          return "Short Description is required";
+                      },
+                    })}
+                  ></textarea>
+
+                  {errors.shortDescription && (
+                    <ErrorText label={errors.shortDescription.message} />
+                  )}
+                </div>
+
                 {/* Description */}
                 <div className="space-y-1.5">
                   <MyLabel label="Description" htmlFor="description" />
                   <textarea
                     id="description"
+                    disabled={loading}
                     placeholder="Exploring how AI will transform our everyday lives..."
                     className="textarea"
                     {...register("description", {
@@ -159,9 +210,15 @@ const PostBlogPage = () => {
                   )}
                 </div>
 
-                <MyButton className="rounded-xl">
-                  <FaPaperPlane className="mr-2" />
-                  Publish Blog
+                <MyButton disabled={loading} className="rounded-xl">
+                  {loading ? (
+                    <ActionSpinner />
+                  ) : (
+                    <>
+                      <FaPaperPlane className="mr-2" />
+                      Publish Blog
+                    </>
+                  )}
                 </MyButton>
               </div>
             </form>

@@ -23,7 +23,7 @@ export default function BlogCard({ blogData }) {
           {blogData.title}
         </h2>
 
-        <p className="line-clamp-3">{blogData.description}</p>
+        <p className="line-clamp-3">{blogData.shortDescription}</p>
 
         <div className="card-actions justify-between items-center">
           <div className="flex items-center gap-2">
