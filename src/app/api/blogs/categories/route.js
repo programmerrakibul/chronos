@@ -10,13 +10,18 @@ export const GET = async () => {
     ].reduce((acc, item, i) => {
       if (item) {
         acc.push({
-          id: i + 1,
+          id: i + 2,
           name: item,
         });
       }
 
       return acc;
     }, []);
+
+    categories.unshift({
+      id: 1,
+      name: "All",
+    });
 
     return NextResponse.json({
       success: true,
