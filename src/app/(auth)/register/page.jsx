@@ -10,8 +10,10 @@ import SocialLogin from "@/components/SocialLogin/SocialLogin";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
+import { loginSuccessMessage } from "@/utilities/getLoginMessage";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -19,6 +21,7 @@ import { toast } from "sonner";
 const RegisterPage = () => {
   const { createUser, updateUserProfile } = useAuthInfo();
   const { handleGoogleLogin } = useGoogleLogin();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -37,6 +40,9 @@ const RegisterPage = () => {
         displayName,
         photoURL,
       });
+
+      router.push("/");
+      loginSuccessMessage(userCredentials.user.displayName);
     } catch (err) {
       const errorMessage = getAuthErrorMessage(err.code);
       toast.error(errorMessage);

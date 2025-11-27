@@ -10,7 +10,9 @@ import SocialLogin from "@/components/SocialLogin/SocialLogin";
 import useAuthInfo from "@/hooks/useAuthInfo";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
+import { loginSuccessMessage } from "@/utilities/getLoginMessage";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -18,6 +20,7 @@ import { toast } from "sonner";
 const LoginPage = () => {
   const { handleGoogleLogin } = useGoogleLogin();
   const { loginUser } = useAuthInfo();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -27,7 +30,10 @@ const LoginPage = () => {
 
   const handleUserLogin = async (data) => {
     try {
-      await loginUser(data.email, data.password);
+      const userCreds = await loginUser(data.email, data.password);
+
+      router.push("/");
+      loginSuccessMessage(userCreds.user.displayName);
     } catch (err) {
       const errorMessage = getAuthErrorMessage(err.code);
       toast.error(errorMessage);
@@ -37,9 +43,7 @@ const LoginPage = () => {
   return (
     <section className="py-6 my-7">
       <MyContainer className="grid place-items-center min-h-[70dvh]  space-y-7">
-        <Heading
-        title="Login Now"
-        />
+        <Heading title="Login Now" />
         <div className="max-w-lg w-full bg-primary/10 p-6 rounded-xl shadow-xl">
           <form onSubmit={handleSubmit(handleUserLogin)}>
             <fieldset className="fieldset gap-3.5 text-base">
