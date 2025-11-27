@@ -14,6 +14,7 @@ import {
   FaBookmark,
 } from "react-icons/fa";
 import { toast } from "sonner";
+import Loader from "@/components/Loader/Loader";
 
 const BlogDetails = () => {
   const router = useRouter();
@@ -27,14 +28,7 @@ const BlogDetails = () => {
   });
 
   if (isPending) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="loading loading-spinner loading-lg text-primary"></div>
-          <p className="text-base-content/70">Loading blog post...</p>
-        </div>
-      </div>
-    );
+    return <Loader className="min-h-[60dvh]" />;
   }
 
   return (

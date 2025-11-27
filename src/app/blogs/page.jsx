@@ -2,6 +2,7 @@
 
 import BlogCard from "@/components/BlogCard/BlogCard";
 import Heading from "@/components/Heading/Heading";
+import Loader from "@/components/Loader/Loader";
 import MyContainer from "@/components/MyContainer/MyContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -32,10 +33,6 @@ const BlogsPage = () => {
     },
   });
 
-  // if (isLoading) {
-  //   return <p>Loading...</p>;
-  // }
-
   return (
     <>
       <section className="my-7 py-6">
@@ -50,6 +47,7 @@ const BlogsPage = () => {
               <input
                 type="search"
                 placeholder="Search..."
+                disabled={isLoading}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value.trim())}
                 className="input py-2 pl-10 pr-4 min-w-[190px]"
@@ -62,6 +60,8 @@ const BlogsPage = () => {
             <select
               name="categoryFilter"
               defaultValue=""
+              value={filterValue}
+              disabled={categories.length === 0}
               onChange={(e) => setFilterValue(e.target.value)}
               className="select w-16! px-2 md:px-3 py-0 md:py-1 tracking-wider join-item"
             >
@@ -72,11 +72,15 @@ const BlogsPage = () => {
             </select>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
-            {blogs?.map((blog) => (
-              <BlogCard key={blog._id} blogData={blog} />
-            ))}
-          </div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
+              {blogs?.map((blog) => (
+                <BlogCard key={blog._id} blogData={blog} />
+              ))}
+            </div>
+          )}
         </MyContainer>
       </section>
     </>

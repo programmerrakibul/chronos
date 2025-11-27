@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import { auth } from "@/firebase/firebase.init";
+import Loader from "@/components/Loader/Loader";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -64,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext value={authInfo}>
-      {loading ? <p>Loading...</p> : children}
+      {loading ? <Loader className="min-h-dvh" /> : children}
     </AuthContext>
   );
 };
