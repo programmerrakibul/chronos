@@ -1,5 +1,6 @@
 "use client";
 
+import ActionSpinner from "@/components/ActionSpinner/ActionSpinner";
 import ErrorText from "@/components/ErrorText/ErrorText";
 import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
@@ -14,23 +15,26 @@ import { loginSuccessMessage } from "@/utilities/getLoginMessage";
 import { getUploadImage } from "@/utilities/getUploadImage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const RegisterPage = () => {
   const { createUser, updateUserProfile } = useAuthInfo();
-  const { handleGoogleLogin } = useGoogleLogin();
+  const { handleGoogleLogin, googleLoading } = useGoogleLogin();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleCreateUser = async (data) => {
     const { name: displayName, email, image, password } = data;
+    setLoading(true);
 
     try {
       const photoURL = await getUploadImage(image[0]);
@@ -41,11 +45,14 @@ const RegisterPage = () => {
         photoURL,
       });
 
+      reset();
       router.push("/");
       loginSuccessMessage(userCredentials.user.displayName);
     } catch (err) {
       const errorMessage = getAuthErrorMessage(err.code);
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,6 +92,7 @@ const RegisterPage = () => {
                 <MyLabel htmlFor="name" label="Name" />
                 <MyInput
                   id="name"
+                  disabled={loading || googleLoading}
                   placeholder="E.g. John Doe"
                   {...register("name", {
                     required: "Name is required",
@@ -103,6 +111,7 @@ const RegisterPage = () => {
                 <input
                   id="image"
                   type="file"
+                  disabled={loading || googleLoading}
                   className="file-input block w-full"
                   {...register("image", {
                     required: "Image is required",
@@ -118,6 +127,7 @@ const RegisterPage = () => {
                 <MyInput
                   id="email"
                   type="email"
+                  disabled={loading || googleLoading}
                   placeholder="E.g. example@gmail.com"
                   {...register("email", {
                     required: "Email is required",
@@ -132,6 +142,7 @@ const RegisterPage = () => {
                 <MyInput
                   id="password"
                   type="password"
+                  disabled={loading || googleLoading}
                   placeholder="•••••••"
                   {...register("password", {
                     required: "Password is required",
@@ -144,7 +155,12 @@ const RegisterPage = () => {
                 )}
               </div>
 
-              <MyButton className="btn btn-neutral mt-4">Register</MyButton>
+              <MyButton
+                disabled={loading || googleLoading}
+                className="btn btn-neutral mt-4"
+              >
+                {loading ? <ActionSpinner /> : "Register"}
+              </MyButton>
 
               <p className="text-center">
                 Already have an account?{" "}
@@ -153,7 +169,10 @@ const RegisterPage = () => {
                 </Link>
               </p>
 
-              <SocialLogin onClick={handleGoogleLogin} />
+              <SocialLogin
+                disabled={loading || googleLoading}
+                onClick={handleGoogleLogin}
+              />
             </fieldset>
           </form>
         </div>

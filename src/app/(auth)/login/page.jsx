@@ -1,5 +1,6 @@
 "use client";
 
+import ActionSpinner from "@/components/ActionSpinner/ActionSpinner";
 import ErrorText from "@/components/ErrorText/ErrorText";
 import Heading from "@/components/Heading/Heading";
 import MyButton from "@/components/MyButton/MyButton";
@@ -13,30 +14,37 @@ import { getAuthErrorMessage } from "@/utilities/getAuthErrorMessage";
 import { loginSuccessMessage } from "@/utilities/getLoginMessage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const LoginPage = () => {
-  const { handleGoogleLogin } = useGoogleLogin();
+  const { handleGoogleLogin, googleLoading } = useGoogleLogin();
   const { loginUser } = useAuthInfo();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleUserLogin = async (data) => {
+    setLoading(true);
+
     try {
       const userCreds = await loginUser(data.email, data.password);
 
+      reset();
       router.push("/");
       loginSuccessMessage(userCreds.user.displayName);
     } catch (err) {
       const errorMessage = getAuthErrorMessage(err.code);
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,6 +60,7 @@ const LoginPage = () => {
                 <MyInput
                   id="email"
                   type="email"
+                  disabled={loading || googleLoading}
                   placeholder="E.g. example@gmail.com"
                   {...register("email", {
                     required: "Email is required",
@@ -66,6 +75,7 @@ const LoginPage = () => {
                 <MyInput
                   id="password"
                   type="password"
+                  disabled={loading || googleLoading}
                   placeholder="•••••••"
                   {...register("password", {
                     required: "Password is required",
@@ -81,7 +91,12 @@ const LoginPage = () => {
                 <a className="link link-hover">Forgot password?</a>
               </div>
 
-              <MyButton className="btn btn-neutral mt-4">Login</MyButton>
+              <MyButton
+                disabled={loading || googleLoading}
+                className="btn btn-neutral mt-4"
+              >
+                {loading ? <ActionSpinner /> : "Login"}
+              </MyButton>
 
               <p className="text-center">
                 Don&apos;t have an account?{" "}
@@ -90,7 +105,10 @@ const LoginPage = () => {
                 </Link>
               </p>
 
-              <SocialLogin onClick={handleGoogleLogin} />
+              <SocialLogin
+                disabled={loading || googleLoading}
+                onClick={handleGoogleLogin}
+              />
             </fieldset>
           </form>
         </div>
