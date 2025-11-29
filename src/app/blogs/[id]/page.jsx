@@ -1,47 +1,46 @@
-"use client";
-
 import MyContainer from "@/components/MyContainer/MyContainer";
 import { formatDate } from "@/utilities/formatDate";
-import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import {
-  FaCalendar,
-  FaUser,
-  FaTag,
-  FaArrowLeft,
-  FaShare,
-  FaBookmark,
-} from "react-icons/fa";
-import { toast } from "sonner";
-import Loader from "@/components/Loader/Loader";
+import { FaCalendar, FaUser, FaTag, FaShare, FaBookmark } from "react-icons/fa";
+import BackButton from "@/components/BackButton/BackButton";
 
-const BlogDetails = () => {
-  const router = useRouter();
-  const { id } = useParams();
-  const { data: blogData = {}, isPending } = useQuery({
-    queryKey: ["blog", id],
-    queryFn: async () => {
-      const { data } = await axios.get(`/api/blogs/${id}`);
-      return data?.blogData;
-    },
-  });
+export async function generateMetadata({ params }) {
+  const { id } = await params;
 
-  if (isPending) {
-    return <Loader className="min-h-[60dvh]" />;
+  try {
+    const { data } = await axios.get(
+      `${process.env.SITE_DOMAIN}/api/blogs/${id}`
+    );
+
+    const blogData = data.blogData || {};
+
+    return {
+      title: `${blogData.title} - CHRONOS`,
+      description: "Read this interesting blog post",
+    };
+  } catch {
+    return {
+      title: "Blog Post - CHRONOS",
+      description: "Read this interesting blog post",
+    };
   }
+}
+
+const BlogDetails = async ({ params }) => {
+  const { id } = await params;
+  const { data } = await axios.get(
+    `${process.env.SITE_DOMAIN}/api/blogs/${id}`
+  );
+
+  const blogData = data.blogData || {};
+
+  console.log(blogData);
 
   return (
     <section className="py-6 md:py-12 lg:py-16">
       <MyContainer>
         <div className="mb-6 md:mb-8">
-          <button
-            onClick={() => router.back()}
-            className="btn btn-ghost btn-sm md:btn-md gap-2 px-4 hover:bg-base-200 transition-all duration-200"
-          >
-            <FaArrowLeft className="text-sm" />
-            <span className="text-sm md:text-base">Go Back</span>
-          </button>
+          <BackButton />
         </div>
 
         <div className="max-w-4xl mx-auto">
@@ -86,18 +85,12 @@ const BlogDetails = () => {
               </div>
 
               <div className="flex justify-center gap-3 mt-2">
-                <button
-                  onClick={() => toast.info("Feature is coming soon!")}
-                  className="btn btn-outline btn-sm md:btn-md gap-2 px-4 md:px-6 hover:bg-base-200 transition-all"
-                >
+                <button className="btn btn-outline btn-sm md:btn-md gap-2 px-4 md:px-6 hover:bg-base-200 transition-all">
                   <FaBookmark className="text-sm" />
                   <span className="text-sm md:text-base">Save</span>
                 </button>
 
-                <button
-                  onClick={() => toast.info("Feature is coming soon!")}
-                  className="btn btn-outline btn-sm md:btn-md gap-2 px-4 md:px-6 hover:bg-base-200 transition-all"
-                >
+                <button className="btn btn-outline btn-sm md:btn-md gap-2 px-4 md:px-6 hover:bg-base-200 transition-all">
                   <FaShare className="text-sm" />
                   <span className="text-sm md:text-base">Share</span>
                 </button>
