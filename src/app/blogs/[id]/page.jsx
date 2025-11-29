@@ -34,8 +34,6 @@ const BlogDetails = async ({ params }) => {
 
   const blogData = data.blogData || {};
 
-  console.log(blogData);
-
   return (
     <section className="py-6 md:py-12 lg:py-16">
       <MyContainer>
