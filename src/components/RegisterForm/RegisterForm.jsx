@@ -15,6 +15,7 @@ import MyButton from "../MyButton/MyButton";
 import ActionSpinner from "../ActionSpinner/ActionSpinner";
 import Link from "next/link";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { getUploadImage } from "@/utilities/getUploadImage";
 
 const RegisterForm = () => {
   const { createUser, updateUserProfile } = useAuthInfo();
