@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
-
 @plugin "daisyui" {
   themes: light --default;
 }
@@ -14,17 +12,22 @@
   --color-neutral: #27374d;
 }
 
-* {
-  @apply font-['Opens_Sans'];
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  @apply text-neutral;
+  font-family: var(--font-raleway);
+  color: #27374d;
+}
+
+.logo {
+  @apply text-xl md:text-2xl font-extrabold bg-clip-text text-transparent italic;
+}
+
+.logo {
+  font-family: var(--font-raleway);
 }
 
 .navLinks {

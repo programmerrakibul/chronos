@@ -5,7 +5,7 @@ const Logo = () => {
     <>
       <Link
         href="/"
-        className="text-xl md:text-2xl font-extrabold primary_linear bg-clip-text text-transparent italic"
+        className="primary_linear logo"
       >
         CHRONOS
       </Link>
