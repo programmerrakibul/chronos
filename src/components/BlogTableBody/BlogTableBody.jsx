@@ -73,7 +73,7 @@ const BlogTableBody = () => {
         {isPending ? (
           <tr>
             <td className="w-full" colSpan={6}>
-              <Loader className="h-auto" />
+              <Loader className="h-[7dvh]" />
             </td>
           </tr>
         ) : (
