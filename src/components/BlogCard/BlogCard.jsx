@@ -4,7 +4,7 @@ import { formatDate } from "@/utilities/formatDate";
 import MyButton from "../MyButton/MyButton";
 import { useRouter } from "next/navigation";
 
-export default function BlogCard({ blogData }) {
+const BlogCard = ({ blogData }) => {
   const router = useRouter();
 
   return (
@@ -53,4 +53,6 @@ export default function BlogCard({ blogData }) {
       </div>
     </div>
   );
-}
+};
+
+export default BlogCard;

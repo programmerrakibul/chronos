@@ -6,8 +6,8 @@ import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import MyContainer from "../MyContainer/MyContainer";
 import Heading from "../Heading/Heading";
-import Loader from "../Loader/Loader";
 import BlogCard from "../BlogCard/BlogCard";
+import BlogCardSkeleton from "../skeletons/BlogCardSkeletong";
 
 const BlogsSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -70,15 +70,13 @@ const BlogsSection = () => {
             </select>
           </div>
 
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
-              {blogs?.map((blog) => (
-                <BlogCard key={blog._id} blogData={blog} />
-              ))}
-            </div>
-          )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
+            {isLoading
+              ? [...Array(10)].map((_, i) => <BlogCardSkeleton key={i} />)
+              : blogs.map((blog) => (
+                  <BlogCard key={blog._id} blogData={blog} />
+                ))}
+          </div>
         </MyContainer>
       </section>
     </>
