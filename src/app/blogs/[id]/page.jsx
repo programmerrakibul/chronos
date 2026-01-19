@@ -1,18 +1,14 @@
 import MyContainer from "@/components/MyContainer/MyContainer";
 import { formatDate } from "@/utilities/formatDate";
-import axios from "axios";
 import { FaCalendar, FaUser, FaTag, FaShare, FaBookmark } from "react-icons/fa";
 import BackButton from "@/components/BackButton/BackButton";
+import { getBlogById } from "@/utils/api";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
 
   try {
-    const { data } = await axios.get(
-      `${process.env.SITE_DOMAIN}/api/blogs/${id}`
-    );
-
-    const blogData = data.blogData || {};
+    const blogData = await getBlogById(id);
 
     return {
       title: `${blogData.title} - CHRONOS`,
@@ -28,11 +24,8 @@ export async function generateMetadata({ params }) {
 
 const BlogDetails = async ({ params }) => {
   const { id } = await params;
-  const { data } = await axios.get(
-    `${process.env.SITE_DOMAIN}/api/blogs/${id}`
-  );
 
-  const blogData = data.blogData || {};
+  const blogData = await getBlogById(id);
 
   return (
     <section className="py-6 md:py-12 lg:py-16">
