@@ -1,12 +1,20 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
-const clientOptions = {
+// import dns from "node:dns";
+// dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
+export const uri = process.env.MONGODB_URI?.trim();
+
+if (!uri) throw new Error("Missing MONGODB_URI environment variable!");
+
+export const clientOptions = {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
   },
+  connectTimeoutMS: 10000,
+  socketTimeoutMS: 10000,
 };
 
 let client;
